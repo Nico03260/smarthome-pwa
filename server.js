@@ -92,7 +92,8 @@ app.get('/api/health', (req, res) => {
 // Liste des appareils du compte
 app.get('/api/devices', async (req, res) => {
   try {
-    const data = await tuyaRequest('GET', '/v1.3/iot-03/devices');
+    const uid = 'eu16080591067982nAyN';
+const data = await tuyaRequest('GET', `/v1.0/users/${uid}/devices`);
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: err.message });
