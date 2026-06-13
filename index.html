@@ -584,14 +584,22 @@ async function saveConfig() {
 }
 
 // ── Tuya API stub ─────────────────────────────────────────
-// Remplace cette fonction par un vrai appel à ton backend
-// qui signe les requêtes Tuya (HMAC-SHA256 côté serveur).
+const BACKEND_URL = 'https://smarthome-pwa-production.up.railway.app';
+
 async function tuyaCommand(deviceId, on, props = {}) {
-  console.log('[Tuya] Device:', deviceId, '| On:', on, '| Props:', props);
-  // Exemple de commande :
-  // POST https://{region}.openapi.tuyaeu.com/v1.0/iot-03/devices/{device_id}/commands
-  // Body: { commands: [{ code: 'switch_led', value: on }, ...] }
-  // ⚠ Les appels doivent être signés côté serveur (secret ne doit pas être exposé côté client)
+  try {
+    const url = on
+      ? `${BACKEND_URL}/api/devices/${deviceId}/on`
+      : `${BACKEND_URL}/api/devices/${deviceId}/off`;
+    await fetch(url, { method: 'POST' });
+    if (Object.keys(props).length > 0) {
+      await fetch(`${BACKEND_URL}/api/devices/${deviceId}/commands`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ commands: Object.entries(props).map(([code, value]) => ({ code, value })) }),
+      });
+    }
+  } catch(err) { console.error(err); }
 }
 
 // ── PWA Install ──────────────────────────────────────────
