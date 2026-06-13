@@ -85,8 +85,12 @@ async function tuyaRequest(method, path, body = null) {
 // ── Routes ────────────────────────────────────────────────
 
 // Santé du serveur
-app.get('/api/health', (req, res) => {
-  res.json({ ok: true, region: REGION, base: BASE_URL });
+app.get('/api/debug', (req, res) => {
+  res.json({
+    client_id: CLIENT_ID ? CLIENT_ID.substring(0,6) + '...' : 'MANQUANT',
+    secret: CLIENT_SECRET ? CLIENT_SECRET.substring(0,6) + '...' : 'MANQUANT',
+    region: REGION,
+  });
 });
 
 // Liste des appareils du compte
