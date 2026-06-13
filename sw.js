@@ -1,5 +1,5 @@
 // SmartHome PWA — Service Worker v1.0
-const CACHE_NAME = 'smarthome-v1';
+const CACHE_NAME = 'smarthome-v2';
 const OFFLINE_URLS = [
   '/smarthome-pwa/',
   '/smarthome-pwa/index.html',
