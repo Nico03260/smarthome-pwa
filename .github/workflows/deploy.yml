@@ -31,7 +31,6 @@ jobs:
       - name: Uploader les fichiers du site
         uses: actions/upload-pages-artifact@v3
         with:
-          # Dossier contenant index.html, manifest.json, sw.js, icons
           path: '.'
 
       - name: Déployer sur GitHub Pages
