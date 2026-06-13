@@ -1,8 +1,8 @@
 // SmartHome PWA — Service Worker v1.0
 const CACHE_NAME = 'smarthome-v1';
 const OFFLINE_URLS = [
-  '/',
-  '/index.html',
+  '/smarthome-pwa/',
+  '/smarthome-pwa/index.html',
   '/manifest.json',
   'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css',
   'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/fonts/tabler-icons.woff2',
