@@ -38,9 +38,14 @@ async function getToken() {
   if (tokenCache.token && Date.now() < tokenCache.expiresAt) {
     return tokenCache.token;
   }
-  const t   = Date.now().toString();
+  const t    = Date.now().toString();
   const path = '/v1.0/token?grant_type=1';
-  const s   = sign(CLIENT_ID, CLIENT_SECRET, '', t, 'GET', path);
+  // Pour le token, pas de access_token dans la signature
+  const str  = CLIENT_ID + t + 'GET\n' +
+    crypto.createHash('sha256').update('').digest('hex') +
+    '\n\n' + path;
+  const s    = crypto.createHmac('sha256', CLIENT_SECRET).update(str).digest('hex').toUpperCase();
+
 
   const res  = await fetch(`${BASE_URL}${path}`, {
     headers: {
