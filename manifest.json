@@ -2,7 +2,7 @@
   "name": "SmartHome — Domotique",
   "short_name": "SmartHome",
   "description": "Contrôlez vos appareils SmartLife / Tuya depuis votre téléphone",
-  "start_url": "/index.html",
+  "start_url": "/smarthome-pwa/index.html",
   "display": "standalone",
   "background_color": "#0f1117",
   "theme_color": "#0f1117",
