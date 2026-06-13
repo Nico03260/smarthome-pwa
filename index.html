@@ -161,12 +161,37 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #0f1117; c
   <!-- PAGE: Températures -->
   <div id="page-temps" class="page">
     <div class="header">
-      <div><h1>Températures</h1><div class="subtitle">Toutes les pièces</div></div>
+      <div><h1>Températures</h1><div class="subtitle">Historique & temps réel</div></div>
     </div>
+
+    <!-- Sélecteur période -->
+    <div style="padding: 0 16px; margin-bottom: 16px; display:flex; gap:8px;">
+      <button id="btn-24h" onclick="switchPeriod('24h')" style="flex:1;padding:8px;border-radius:10px;border:0.5px solid #3b82f6;background:#1e2a4a;color:#3b82f6;font-size:13px;cursor:pointer;">24 heures</button>
+      <button id="btn-7d"  onclick="switchPeriod('7d')"  style="flex:1;padding:8px;border-radius:10px;border:0.5px solid #2a2d3e;background:#1a1d2e;color:#8b90a4;font-size:13px;cursor:pointer;">7 jours</button>
+    </div>
+
+    <!-- Températures actuelles -->
     <div class="section">
-      <div id="temps-detail-list">
-        <div class="loading-bar">Chargement...</div>
+      <div class="section-title">Maintenant</div>
+      <div id="temps-detail-list"><div class="loading-bar">Chargement...</div></div>
+    </div>
+
+    <!-- Graphique -->
+    <div class="section">
+      <div class="section-title">Évolution — <span id="chart-period-label">24 heures</span></div>
+      <div style="background:#1a1d2e;border:0.5px solid #2a2d3e;border-radius:14px;padding:14px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;" id="legend"></div>
+        <canvas id="tempChart" style="width:100%;height:200px;"></canvas>
+        <div id="chart-empty" style="text-align:center;color:#8b90a4;font-size:13px;padding:20px;display:none;">
+          Pas encore de données — reviens dans 10 minutes !
+        </div>
       </div>
+    </div>
+
+    <!-- Stats min/max -->
+    <div class="section">
+      <div class="section-title">Min / Max sur la période</div>
+      <div id="minmax-list"><div class="loading-bar">Chargement...</div></div>
     </div>
   </div>
 
@@ -552,14 +577,187 @@ function renderAllDevices() {
   </div>`).join('');
 }
 
+// ── Graphiques températures ───────────────────────────────
+const COLORS = ['#3b82f6','#fbbf24','#4ade80','#ef4444','#a855f7','#0ea5e9'];
+let currentPeriod = '24h';
+let historyData   = null;
+
+function switchPeriod(period) {
+  currentPeriod = period;
+  document.getElementById('btn-24h').style.background = period === '24h' ? '#1e2a4a' : '#1a1d2e';
+  document.getElementById('btn-24h').style.borderColor = period === '24h' ? '#3b82f6' : '#2a2d3e';
+  document.getElementById('btn-24h').style.color = period === '24h' ? '#3b82f6' : '#8b90a4';
+  document.getElementById('btn-7d').style.background = period === '7d' ? '#1e2a4a' : '#1a1d2e';
+  document.getElementById('btn-7d').style.borderColor = period === '7d' ? '#3b82f6' : '#2a2d3e';
+  document.getElementById('btn-7d').style.color = period === '7d' ? '#3b82f6' : '#8b90a4';
+  document.getElementById('chart-period-label').textContent = period === '24h' ? '24 heures' : '7 jours';
+  loadHistory();
+}
+
+async function loadHistory() {
+  try {
+    const res  = await fetch(`${BACKEND_URL}/api/history?period=${currentPeriod}`);
+    const data = await res.json();
+    historyData = data;
+    renderChart(data);
+    renderMinMax(data);
+  } catch(err) {
+    console.error('Historique:', err);
+  }
+}
+
+function renderChart(data) {
+  const canvas = document.getElementById('tempChart');
+  const empty  = document.getElementById('chart-empty');
+  const legend = document.getElementById('legend');
+  if (!canvas) return;
+
+  const sensors = data.sensors || [];
+  const result  = data.result  || {};
+
+  // Vérifier si on a des données
+  const hasData = sensors.some(s => result[s.id] && result[s.id].length > 0);
+  if (!hasData) {
+    canvas.style.display = 'none';
+    empty.style.display  = 'block';
+    legend.innerHTML     = '';
+    return;
+  }
+  canvas.style.display = 'block';
+  empty.style.display  = 'none';
+
+  const ctx = canvas.getContext('2d');
+  const W   = canvas.offsetWidth || 320;
+  const H   = 200;
+  canvas.width  = W * window.devicePixelRatio;
+  canvas.height = H * window.devicePixelRatio;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+  // Fond
+  ctx.fillStyle = '#1a1d2e';
+  ctx.fillRect(0, 0, W, H);
+
+  const PAD = { top: 10, right: 10, bottom: 30, left: 36 };
+  const CW  = W - PAD.left - PAD.right;
+  const CH  = H - PAD.top  - PAD.bottom;
+
+  // Trouver min/max globaux
+  let minT = Infinity, maxT = -Infinity, minTime = Infinity, maxTime = -Infinity;
+  sensors.forEach(s => {
+    (result[s.id] || []).forEach(p => {
+      if (p.temp < minT) minT = p.temp;
+      if (p.temp > maxT) maxT = p.temp;
+      if (p.t < minTime) minTime = p.t;
+      if (p.t > maxTime) maxTime = p.t;
+    });
+  });
+  if (minT === Infinity) return;
+  const rangeT = maxT - minT || 1;
+  const rangeTime = maxTime - minTime || 1;
+
+  // Grille horizontale
+  ctx.strokeStyle = '#2a2d3e';
+  ctx.lineWidth   = 0.5;
+  for (let i = 0; i <= 4; i++) {
+    const y = PAD.top + (CH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(PAD.left, y);
+    ctx.lineTo(PAD.left + CW, y);
+    ctx.stroke();
+    const val = maxT - (rangeT / 4) * i;
+    ctx.fillStyle = '#8b90a4';
+    ctx.font = '10px system-ui';
+    ctx.textAlign = 'right';
+    ctx.fillText(val.toFixed(1) + '°', PAD.left - 4, y + 4);
+  }
+
+  // Lignes par capteur
+  sensors.forEach((s, i) => {
+    const points = result[s.id] || [];
+    if (points.length < 2) return;
+    ctx.strokeStyle = COLORS[i % COLORS.length];
+    ctx.lineWidth   = 2;
+    ctx.lineJoin    = 'round';
+    ctx.beginPath();
+    points.forEach((p, j) => {
+      const x = PAD.left + ((p.t - minTime) / rangeTime) * CW;
+      const y = PAD.top  + CH - ((p.temp - minT) / rangeT) * CH;
+      j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+  });
+
+  // Axe temps
+  ctx.fillStyle   = '#8b90a4';
+  ctx.font        = '10px system-ui';
+  ctx.textAlign   = 'center';
+  const labelCount = currentPeriod === '24h' ? 5 : 7;
+  for (let i = 0; i <= labelCount; i++) {
+    const t = minTime + (rangeTime / labelCount) * i;
+    const x = PAD.left + (CW / labelCount) * i;
+    const d = new Date(t);
+    const label = currentPeriod === '24h'
+      ? d.getHours() + 'h'
+      : d.getDate() + '/' + (d.getMonth() + 1);
+    ctx.fillText(label, x, H - 8);
+  }
+
+  // Légende
+  legend.innerHTML = sensors.map((s, i) => `
+    <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#e8eaf0;">
+      <div style="width:12px;height:3px;background:${COLORS[i % COLORS.length]};border-radius:2px;"></div>
+      ${s.name}
+    </div>`).join('');
+}
+
+function renderMinMax(data) {
+  const el      = document.getElementById('minmax-list');
+  const sensors = data.sensors || [];
+  const result  = data.result  || {};
+  if (!el) return;
+
+  el.innerHTML = sensors.map((s, i) => {
+    const points = result[s.id] || [];
+    if (points.length === 0) return '';
+    const temps  = points.map(p => p.temp);
+    const minT   = Math.min(...temps).toFixed(1);
+    const maxT   = Math.max(...temps).toFixed(1);
+    const lastT  = temps[temps.length - 1].toFixed(1);
+    return `
+    <div class="device-card">
+      <div class="device-icon-wrap thermo" style="background:${COLORS[i % COLORS.length]}22;color:${COLORS[i % COLORS.length]};">
+        <i class="ti ti-temperature" aria-hidden="true"></i>
+      </div>
+      <div class="device-info">
+        <div class="device-name">${s.name}</div>
+        <div class="device-status" style="color:#8b90a4;">${points.length} mesures</div>
+      </div>
+      <div style="text-align:right;font-size:12px;color:#8b90a4;">
+        <div style="color:#ef4444;">↑ ${maxT}°C</div>
+        <div style="color:#3b82f6;">↓ ${minT}°C</div>
+        <div style="color:#4ade80;font-size:11px;">= ${lastT}°C</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 // ── Service Worker ────────────────────────────────────────
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
+  navigator.serviceWorker.register('/smarthome-pwa/sw.js').catch(()=>{});
 }
 
 // ── Init ──────────────────────────────────────────────────
 loadDevices();
-setInterval(loadDevices, 60000); // Rafraîchissement auto toutes les 60s
+setInterval(loadDevices, 60000);
+
+// Charger l'historique quand on arrive sur la page températures
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.getAttribute('aria-label') === 'Températures') loadHistory();
+  });
+});
 </script>
 </body>
 </html>
