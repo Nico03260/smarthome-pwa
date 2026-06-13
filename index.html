@@ -16,27 +16,14 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: system-ui, -apple-system, sans-serif; background: #0f1117; color: #e8eaf0; min-height: 100vh; }
 .app { max-width: 420px; margin: 0 auto; padding: 0 0 80px; }
-
-/* Header */
 .header { padding: 20px 16px 12px; display: flex; justify-content: space-between; align-items: center; }
 .header h1 { font-size: 22px; font-weight: 500; color: #e8eaf0; }
 .header .subtitle { font-size: 13px; color: #8b90a4; margin-top: 2px; }
 .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; display: inline-block; margin-right: 6px; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-.connected-badge { font-size: 12px; color: #4ade80; background: rgba(74,222,128,0.1); border: 0.5px solid rgba(74,222,128,0.3); padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; cursor: pointer; }
-
-/* Config banner */
-.config-banner { margin: 0 16px 16px; background: rgba(251,191,36,0.1); border: 0.5px solid rgba(251,191,36,0.3); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
-.config-banner i { color: #fbbf24; font-size: 18px; }
-.config-banner span { font-size: 13px; color: #fbbf24; flex: 1; }
-.config-banner .btn-config { font-size: 12px; background: rgba(251,191,36,0.2); border: none; color: #fbbf24; padding: 4px 10px; border-radius: 6px; cursor: pointer; }
-.config-banner.hidden { display: none; }
-
-/* Section */
+.connected-badge { font-size: 12px; color: #4ade80; background: rgba(74,222,128,0.1); border: 0.5px solid rgba(74,222,128,0.3); padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; }
 .section { padding: 0 16px; margin-bottom: 20px; }
 .section-title { font-size: 13px; font-weight: 500; color: #8b90a4; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
-
-/* Scenes */
 .scenes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .scene-card { background: #1a1d2e; border: 0.5px solid #2a2d3e; border-radius: 14px; padding: 14px; cursor: pointer; transition: all 0.15s; }
 .scene-card:active { transform: scale(0.97); }
@@ -44,84 +31,43 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #0f1117; c
 .scene-icon { font-size: 24px; margin-bottom: 8px; }
 .scene-name { font-size: 14px; font-weight: 500; color: #e8eaf0; }
 .scene-sub { font-size: 12px; color: #8b90a4; margin-top: 2px; }
-
-/* Devices */
 .device-card { background: #1a1d2e; border: 0.5px solid #2a2d3e; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; }
 .device-icon-wrap { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; transition: all 0.2s; }
 .device-icon-wrap.light  { background: rgba(251,191,36,0.15); color: #fbbf24; }
-.device-icon-wrap.thermo { background: rgba(239,68,68,0.15);  color: #ef4444; }
 .device-icon-wrap.plug   { background: rgba(59,130,246,0.15);  color: #3b82f6; }
-.device-icon-wrap.lock   { background: rgba(74,222,128,0.15);  color: #4ade80; }
-.device-icon-wrap.cam    { background: rgba(168,85,247,0.15);  color: #a855f7; }
+.device-icon-wrap.thermo { background: rgba(239,68,68,0.15);   color: #ef4444; }
+.device-icon-wrap.clim   { background: rgba(14,165,233,0.15);  color: #0ea5e9; }
+.device-icon-wrap.energy { background: rgba(168,85,247,0.15);  color: #a855f7; }
+.device-icon-wrap.pool   { background: rgba(20,184,166,0.15);  color: #14b8a6; }
 .device-icon-wrap.off    { background: #1e2030; color: #4b5068; }
 .device-info { flex: 1; min-width: 0; }
 .device-name { font-size: 14px; font-weight: 500; color: #e8eaf0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .device-status { font-size: 12px; color: #8b90a4; margin-top: 2px; }
 .device-status.on { color: #4ade80; }
-.slider-wrap { margin-top: 8px; }
-.slider-wrap input[type=range] { width: 100%; accent-color: #fbbf24; }
-.slider-val { font-size: 11px; color: #8b90a4; text-align: right; }
+.device-status.warn { color: #fbbf24; }
 .toggle { width: 44px; height: 26px; border-radius: 13px; background: #2a2d3e; border: none; cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0; }
 .toggle.on { background: #3b82f6; }
 .toggle::after { content:''; position: absolute; width: 20px; height: 20px; border-radius: 50%; background: white; top: 3px; left: 3px; transition: left 0.2s; }
 .toggle.on::after { left: 21px; }
-
-/* Stats */
+.temp-badge { background: rgba(239,68,68,0.15); border: 0.5px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 3px 10px; font-size: 13px; color: #ef4444; font-weight: 500; flex-shrink: 0; }
+.hum-badge { background: rgba(59,130,246,0.1); border-radius: 6px; padding: 2px 8px; font-size: 11px; color: #3b82f6; margin-left: 6px; }
+.battery-low { color: #ef4444 !important; }
 .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .stat-card { background: #1a1d2e; border: 0.5px solid #2a2d3e; border-radius: 14px; padding: 14px; }
 .stat-label { font-size: 12px; color: #8b90a4; margin-bottom: 6px; }
 .stat-value { font-size: 24px; font-weight: 500; color: #e8eaf0; }
 .stat-unit { font-size: 14px; color: #8b90a4; }
 .stat-trend { font-size: 11px; color: #4ade80; margin-top: 4px; }
-
-/* Bottom nav */
 .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 420px; background: #13151f; border-top: 0.5px solid #2a2d3e; display: flex; padding: 10px 0 18px; z-index: 100; }
 .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; color: #4b5068; font-size: 11px; transition: color 0.15s; border: none; background: none; }
 .nav-item.active { color: #3b82f6; }
 .nav-item i { font-size: 22px; }
-
-/* Toast */
 .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px); background: #1a1d2e; border: 0.5px solid #3b82f6; color: #e8eaf0; font-size: 13px; padding: 10px 18px; border-radius: 10px; z-index: 300; transition: transform 0.3s; white-space: nowrap; }
 .toast.show { transform: translateX(-50%) translateY(0); }
-
-/* Pages */
 .page { display: none; }
 .page.active { display: block; }
-
-/* Automations */
-.auto-card { background: #1a1d2e; border: 0.5px solid #2a2d3e; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; }
-.auto-icon { font-size: 22px; width: 44px; height: 44px; border-radius: 12px; background: rgba(59,130,246,0.15); color: #3b82f6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.auto-info { flex: 1; }
-.auto-name { font-size: 14px; font-weight: 500; color: #e8eaf0; }
-.auto-sub { font-size: 12px; color: #8b90a4; margin-top: 2px; }
-
-/* Energy chart */
-.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 100px; margin: 12px 0; }
-.bar { flex: 1; border-radius: 4px 4px 0 0; background: #3b82f6; opacity: 0.7; transition: opacity 0.2s; min-width: 0; }
-.bar:hover { opacity: 1; }
-.bar-labels { display: flex; gap: 6px; }
-.bar-label { flex: 1; text-align: center; font-size: 10px; color: #8b90a4; }
-
-/* Modal */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: flex-end; justify-content: center; }
-.modal-overlay.open { display: flex; }
-.modal { background: #1a1d2e; border-radius: 20px 20px 0 0; width: 100%; max-width: 420px; padding: 20px 20px 40px; }
-.modal h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; color: #e8eaf0; }
-.modal-sub { font-size: 13px; color: #8b90a4; margin-bottom: 20px; }
-.form-group { margin-bottom: 14px; }
-.form-label { font-size: 12px; color: #8b90a4; margin-bottom: 6px; display: block; }
-.form-input { width: 100%; background: #0f1117; border: 0.5px solid #2a2d3e; border-radius: 10px; padding: 10px 14px; color: #e8eaf0; font-size: 14px; outline: none; }
-.form-input:focus { border-color: #3b82f6; }
-select.form-input option { background: #1a1d2e; }
-.btn-primary { width: 100%; background: #3b82f6; border: none; color: white; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 6px; }
-.btn-close { float: right; background: none; border: none; color: #8b90a4; font-size: 22px; cursor: pointer; }
-.loading-spinner { text-align: center; padding: 10px; color: #8b90a4; font-size: 13px; }
-
-/* Install banner */
-.install-banner { margin: 0 16px 16px; background: rgba(59,130,246,0.1); border: 0.5px solid rgba(59,130,246,0.3); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
-.install-banner i { color: #3b82f6; font-size: 18px; }
-.install-banner span { font-size: 13px; color: #3b82f6; flex: 1; }
-.install-banner .btn-install { font-size: 12px; background: rgba(59,130,246,0.2); border: none; color: #3b82f6; padding: 4px 10px; border-radius: 6px; cursor: pointer; }
+.loading-bar { text-align: center; padding: 30px; color: #8b90a4; font-size: 13px; }
+.refresh-btn { background: none; border: 0.5px solid #2a2d3e; border-radius: 8px; color: #8b90a4; font-size: 12px; padding: 4px 10px; cursor: pointer; margin-left: 8px; }
 </style>
 </head>
 <body>
@@ -134,180 +80,92 @@ select.form-input option { background: #1a1d2e; }
         <h1>SmartHome</h1>
         <div class="subtitle" id="greeting">Bonjour !</div>
       </div>
-      <div class="connected-badge" id="connBadge" onclick="openModal()">
-        <span class="status-dot"></span> <span id="connLabel">Démo</span>
+      <div class="connected-badge">
+        <span class="status-dot"></span>
+        <span id="connLabel">Chargement...</span>
+        <button class="refresh-btn" onclick="loadDevices()" aria-label="Rafraîchir">↻</button>
       </div>
     </div>
 
-    <div id="installBanner" class="install-banner" style="display:none;" onclick="installPWA()">
-      <i class="ti ti-device-mobile-down" aria-hidden="true"></i>
-      <span>Installer l'app sur ton téléphone</span>
-      <button class="btn-install">Installer</button>
-    </div>
-
-    <div id="configBanner" class="config-banner" onclick="openModal()">
-      <i class="ti ti-settings" aria-hidden="true"></i>
-      <span>Configurer l'accès API Tuya / SmartLife</span>
-      <button class="btn-config">Configurer</button>
-    </div>
-
+    <!-- Scènes -->
     <div class="section">
       <div class="section-title">Scènes rapides</div>
       <div class="scenes-grid">
-        <div class="scene-card active" onclick="setScene(this,'soiree')">
-          <div class="scene-icon">🌙</div>
-          <div class="scene-name">Soirée</div>
-          <div class="scene-sub">Lumières tamisées</div>
-        </div>
-        <div class="scene-card" onclick="setScene(this,'matin')">
-          <div class="scene-icon">☀️</div>
-          <div class="scene-name">Matin</div>
-          <div class="scene-sub">Tout allumé</div>
-        </div>
-        <div class="scene-card" onclick="setScene(this,'absent')">
-          <div class="scene-icon">🏠</div>
-          <div class="scene-name">Absent</div>
-          <div class="scene-sub">Sécurité activée</div>
-        </div>
-        <div class="scene-card" onclick="setScene(this,'nuit')">
+        <div class="scene-card active" onclick="setScene(this,'tout-eteindre')">
           <div class="scene-icon">😴</div>
-          <div class="scene-name">Nuit</div>
-          <div class="scene-sub">Tout éteint</div>
+          <div class="scene-name">Tout éteindre</div>
+          <div class="scene-sub">Prises & projecteurs</div>
+        </div>
+        <div class="scene-card" onclick="setScene(this,'projecteurs')">
+          <div class="scene-icon">💡</div>
+          <div class="scene-name">Projecteurs</div>
+          <div class="scene-sub">Entrée + extérieur</div>
+        </div>
+        <div class="scene-card" onclick="setScene(this,'piscine-on')">
+          <div class="scene-icon">🏊</div>
+          <div class="scene-name">Piscine ON</div>
+          <div class="scene-sub">Pompe piscine</div>
+        </div>
+        <div class="scene-card" onclick="setScene(this,'bureau')">
+          <div class="scene-icon">🖥️</div>
+          <div class="scene-name">Bureau</div>
+          <div class="scene-sub">PC + imprimante</div>
         </div>
       </div>
     </div>
 
+    <!-- Capteurs température -->
     <div class="section">
-      <div class="section-title">Appareils</div>
-
-      <div class="device-card">
-        <div class="device-icon-wrap light" id="icon-lum1"><i class="ti ti-bulb" aria-hidden="true"></i></div>
-        <div class="device-info">
-          <div class="device-name">Salon — Lumière</div>
-          <div class="device-status on" id="status-lum1">Allumé</div>
-          <div class="slider-wrap">
-            <input type="range" min="10" max="100" step="1" value="60" oninput="setBrightness(this,'lum1')" aria-label="Luminosité salon">
-            <div class="slider-val" id="bright-lum1">60%</div>
-          </div>
-        </div>
-        <button class="toggle on" id="tog-lum1" onclick="toggleDevice('lum1')" aria-label="Basculer lumière salon"></button>
-      </div>
-
-      <div class="device-card">
-        <div class="device-icon-wrap thermo" id="icon-thermo"><i class="ti ti-temperature" aria-hidden="true"></i></div>
-        <div class="device-info">
-          <div class="device-name">Thermostat</div>
-          <div class="device-status on" id="status-thermo">21°C — Chauffage</div>
-          <div class="slider-wrap">
-            <input type="range" min="16" max="28" step="1" value="21" oninput="setTemp(this)" aria-label="Température">
-            <div class="slider-val" id="temp-val">21°C</div>
-          </div>
-        </div>
-        <button class="toggle on" id="tog-thermo" onclick="toggleDevice('thermo')" aria-label="Basculer thermostat"></button>
-      </div>
-
-      <div class="device-card">
-        <div class="device-icon-wrap plug" id="icon-plug1"><i class="ti ti-plug" aria-hidden="true"></i></div>
-        <div class="device-info">
-          <div class="device-name">Prise — TV</div>
-          <div class="device-status on" id="status-plug1">Allumée — 85W</div>
-        </div>
-        <button class="toggle on" id="tog-plug1" onclick="toggleDevice('plug1')" aria-label="Basculer prise TV"></button>
-      </div>
-
-      <div class="device-card">
-        <div class="device-icon-wrap lock" id="icon-lock1"><i class="ti ti-lock" aria-hidden="true"></i></div>
-        <div class="device-info">
-          <div class="device-name">Serrure — Entrée</div>
-          <div class="device-status on" id="status-lock1">Verrouillée</div>
-        </div>
-        <button class="toggle on" id="tog-lock1" onclick="toggleDevice('lock1')" aria-label="Basculer serrure"></button>
-      </div>
-
-      <div class="device-card">
-        <div class="device-icon-wrap off" id="icon-lum2"><i class="ti ti-bulb" aria-hidden="true"></i></div>
-        <div class="device-info">
-          <div class="device-name">Chambre — Lumière</div>
-          <div class="device-status" id="status-lum2">Éteinte</div>
-        </div>
-        <button class="toggle" id="tog-lum2" onclick="toggleDevice('lum2')" aria-label="Basculer lumière chambre"></button>
-      </div>
-
-      <div class="device-card">
-        <div class="device-icon-wrap cam" id="icon-cam1"><i class="ti ti-device-cctv" aria-hidden="true"></i></div>
-        <div class="device-info">
-          <div class="device-name">Caméra — Extérieur</div>
-          <div class="device-status on" id="status-cam1">En ligne — Aucun mouvement</div>
-        </div>
-        <button class="toggle on" id="tog-cam1" onclick="toggleDevice('cam1')" aria-label="Basculer caméra"></button>
+      <div class="section-title">Températures & Humidité</div>
+      <div id="sensors-list">
+        <div class="loading-bar">Chargement des capteurs...</div>
       </div>
     </div>
 
+    <!-- Prises & interrupteurs -->
     <div class="section">
-      <div class="section-title">Statistiques</div>
+      <div class="section-title">Prises & Interrupteurs</div>
+      <div id="switches-list">
+        <div class="loading-bar">Chargement des appareils...</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="section">
+      <div class="section-title">Résumé</div>
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Consommation</div>
-          <div class="stat-value">1.2 <span class="stat-unit">kWh</span></div>
-          <div class="stat-trend">↓ 8% vs hier</div>
+          <div class="stat-label">Appareils en ligne</div>
+          <div class="stat-value" id="stat-online">—</div>
+          <div class="stat-trend" id="stat-total">sur — appareils</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Température</div>
-          <div class="stat-value"><span id="stat-temp">21</span> <span class="stat-unit">°C</span></div>
-          <div class="stat-trend">Consigne atteinte</div>
+          <div class="stat-label">Temp. moy. intérieure</div>
+          <div class="stat-value" id="stat-temp">—</div>
+          <div class="stat-trend">°C moyenne</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Appareils actifs</div>
-          <div class="stat-value" id="active-count">5</div>
-          <div class="stat-trend">sur 6 appareils</div>
+          <div class="stat-label">Piscine</div>
+          <div class="stat-value" id="stat-pool" style="font-size:16px;">—</div>
+          <div class="stat-trend">Pompe</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Sécurité</div>
-          <div class="stat-value" style="font-size:16px; color:#4ade80;">OK</div>
-          <div class="stat-trend">Aucune alerte</div>
+          <div class="stat-label">Batteries faibles</div>
+          <div class="stat-value" id="stat-battery" style="font-size:16px; color:#fbbf24;">—</div>
+          <div class="stat-trend">capteurs à recharger</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PAGE: Automations -->
-  <div id="page-auto" class="page">
+  <!-- PAGE: Températures -->
+  <div id="page-temps" class="page">
     <div class="header">
-      <div><h1>Automations</h1><div class="subtitle">Scénarios programmés</div></div>
+      <div><h1>Températures</h1><div class="subtitle">Toutes les pièces</div></div>
     </div>
     <div class="section">
-      <div class="section-title">Actives</div>
-      <div class="auto-card">
-        <div class="auto-icon"><i class="ti ti-sunrise" aria-hidden="true"></i></div>
-        <div class="auto-info">
-          <div class="auto-name">Réveil en douceur</div>
-          <div class="auto-sub">Lun–Ven à 07:00 — Lumières 30%→100% en 30 min</div>
-        </div>
-        <button class="toggle on" aria-label="Basculer automation réveil"></button>
-      </div>
-      <div class="auto-card">
-        <div class="auto-icon"><i class="ti ti-moon" aria-hidden="true"></i></div>
-        <div class="auto-info">
-          <div class="auto-name">Mode nuit auto</div>
-          <div class="auto-sub">Tous les jours à 23:00 — Tout éteindre</div>
-        </div>
-        <button class="toggle on" aria-label="Basculer automation nuit"></button>
-      </div>
-      <div class="auto-card">
-        <div class="auto-icon"><i class="ti ti-home-off" aria-hidden="true"></i></div>
-        <div class="auto-info">
-          <div class="auto-name">Départ automatique</div>
-          <div class="auto-sub">Géolocalisation — Activer sécurité si absent</div>
-        </div>
-        <button class="toggle" aria-label="Basculer automation départ"></button>
-      </div>
-      <div class="auto-card">
-        <div class="auto-icon"><i class="ti ti-temperature-sun" aria-hidden="true"></i></div>
-        <div class="auto-info">
-          <div class="auto-name">Thermostat intelligent</div>
-          <div class="auto-sub">Si T° &lt; 19°C → Chauffer à 21°C</div>
-        </div>
-        <button class="toggle on" aria-label="Basculer automation thermostat"></button>
+      <div id="temps-detail-list">
+        <div class="loading-bar">Chargement...</div>
       </div>
     </div>
   </div>
@@ -315,36 +173,18 @@ select.form-input option { background: #1a1d2e; }
   <!-- PAGE: Énergie -->
   <div id="page-energy" class="page">
     <div class="header">
-      <div><h1>Énergie</h1><div class="subtitle">Consommation de la semaine</div></div>
+      <div><h1>Énergie</h1><div class="subtitle">Compteur & consommation</div></div>
     </div>
     <div class="section">
-      <div class="section-title">kWh par jour</div>
-      <div class="bar-chart" id="barChart"></div>
-      <div class="bar-labels" id="barLabels"></div>
+      <div class="section-title">Compteur principal</div>
+      <div id="energy-detail">
+        <div class="loading-bar">Chargement...</div>
+      </div>
     </div>
     <div class="section">
-      <div class="section-title">Répartition</div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Éclairage</div>
-          <div class="stat-value">0.4 <span class="stat-unit">kWh</span></div>
-          <div class="stat-trend" style="color:#fbbf24;">33%</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Chauffage</div>
-          <div class="stat-value">0.5 <span class="stat-unit">kWh</span></div>
-          <div class="stat-trend" style="color:#ef4444;">42%</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Prises</div>
-          <div class="stat-value">0.3 <span class="stat-unit">kWh</span></div>
-          <div class="stat-trend" style="color:#3b82f6;">25%</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Ce mois</div>
-          <div class="stat-value">38 <span class="stat-unit">kWh</span></div>
-          <div class="stat-trend">↓ 12% vs mois dernier</div>
-        </div>
+      <div class="section-title">Prises avec mesure</div>
+      <div id="energy-plugs">
+        <div class="loading-bar">Chargement...</div>
       </div>
     </div>
   </div>
@@ -352,113 +192,72 @@ select.form-input option { background: #1a1d2e; }
   <!-- PAGE: Paramètres -->
   <div id="page-settings" class="page">
     <div class="header">
-      <div><h1>Paramètres</h1><div class="subtitle">Configuration de l'app</div></div>
+      <div><h1>Paramètres</h1><div class="subtitle">Configuration</div></div>
     </div>
     <div class="section">
-      <div class="section-title">API Tuya / SmartLife</div>
-      <div class="device-card" style="cursor:pointer;" onclick="openModal()">
+      <div class="section-title">Backend API</div>
+      <div class="device-card">
         <div class="device-icon-wrap plug"><i class="ti ti-api" aria-hidden="true"></i></div>
         <div class="device-info">
-          <div class="device-name">Connexion API</div>
-          <div class="device-status" id="api-status-label">Non configuré</div>
+          <div class="device-name">Serveur Railway</div>
+          <div class="device-status on" id="backend-status">Connecté</div>
         </div>
-        <i class="ti ti-chevron-right" style="color:#4b5068; font-size:20px;" aria-hidden="true"></i>
       </div>
-      <div class="section-title" style="margin-top:16px;">Préférences</div>
-      <div class="device-card">
-        <div class="device-icon-wrap light"><i class="ti ti-bell" aria-hidden="true"></i></div>
-        <div class="device-info">
-          <div class="device-name">Notifications</div>
-          <div class="device-status on">Activées</div>
-        </div>
-        <button class="toggle on" aria-label="Basculer notifications"></button>
-      </div>
-      <div class="device-card">
-        <div class="device-icon-wrap cam"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
-        <div class="device-info">
-          <div class="device-name">Géolocalisation</div>
-          <div class="device-status">Désactivée</div>
-        </div>
-        <button class="toggle" aria-label="Basculer géolocalisation"></button>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-title">À propos</div>
-      <div style="background:#1a1d2e; border-radius:14px; padding:14px 16px; font-size:13px; color:#8b90a4; line-height:1.8;">
-        SmartHome PWA v1.0<br>
-        Connexion via API Tuya Cloud<br>
-        Compatible SmartLife, Tuya Smart
+      <div class="section-title" style="margin-top:16px;">Appareils</div>
+      <div id="all-devices-list">
+        <div class="loading-bar">Chargement...</div>
       </div>
     </div>
   </div>
 
-</div><!-- end .app -->
+</div>
 
 <!-- Bottom nav -->
 <nav class="bottom-nav">
   <button class="nav-item active" onclick="showPage('home',this)" aria-label="Accueil">
     <i class="ti ti-home-2" aria-hidden="true"></i>Accueil
   </button>
-  <button class="nav-item" onclick="showPage('auto',this)" aria-label="Automations">
-    <i class="ti ti-player-play" aria-hidden="true"></i>Scènes
+  <button class="nav-item" onclick="showPage('temps',this)" aria-label="Températures">
+    <i class="ti ti-temperature" aria-hidden="true"></i>Temp.
   </button>
   <button class="nav-item" onclick="showPage('energy',this)" aria-label="Énergie">
-    <i class="ti ti-chart-bar" aria-hidden="true"></i>Énergie
+    <i class="ti ti-bolt" aria-hidden="true"></i>Énergie
   </button>
   <button class="nav-item" onclick="showPage('settings',this)" aria-label="Paramètres">
     <i class="ti ti-settings" aria-hidden="true"></i>Config
   </button>
 </nav>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- Config Modal -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <button class="btn-close" onclick="closeModal()" aria-label="Fermer"><i class="ti ti-x"></i></button>
-    <h3>Connexion API Tuya</h3>
-    <p class="modal-sub">Récupère tes clés sur <a href="https://iot.tuya.com" target="_blank" rel="noopener" style="color:#3b82f6;">iot.tuya.com</a> → Créer un projet Cloud</p>
-    <div class="form-group">
-      <label class="form-label" for="clientId">Client ID (Access Key)</label>
-      <input class="form-input" type="text" id="clientId" placeholder="ex: abc123xyz..." autocomplete="off">
-    </div>
-    <div class="form-group">
-      <label class="form-label" for="clientSecret">Client Secret (Secret Key)</label>
-      <input class="form-input" type="password" id="clientSecret" placeholder="••••••••••••••••" autocomplete="off">
-    </div>
-    <div class="form-group">
-      <label class="form-label" for="region">Région du serveur</label>
-      <select class="form-input" id="region">
-        <option value="eu">Europe — eu.openapi.tuyaeu.com</option>
-        <option value="us">USA — openapi.tuyaus.com</option>
-        <option value="cn">Chine — openapi.tuyacn.com</option>
-        <option value="in">Inde — openapi.tuyain.com</option>
-      </select>
-    </div>
-    <div id="connectStatus" class="loading-spinner" style="display:none;">Connexion en cours...</div>
-    <button class="btn-primary" onclick="saveConfig()">Connecter SmartLife</button>
-  </div>
-</div>
-
 <script>
-// ── State ────────────────────────────────────────────────
-const devices = {
-  lum1:  { on:true,  onText:'Allumé',                   offText:'Éteinte',      type:'light'  },
-  thermo:{ on:true,  onText:'21°C — Chauffage',          offText:'Éteint',       type:'thermo' },
-  plug1: { on:true,  onText:'Allumée — 85W',             offText:'Éteinte',      type:'plug'   },
-  lock1: { on:true,  onText:'Verrouillée',               offText:'Déverrouillée',type:'lock'   },
-  lum2:  { on:false, onText:'Allumée',                   offText:'Éteinte',      type:'light'  },
-  cam1:  { on:true,  onText:'En ligne — Aucun mouvement',offText:'Hors ligne',   type:'cam'    },
+const BACKEND_URL = 'https://smarthome-pwa-production.up.railway.app';
+
+// IDs réels des appareils
+const DEVICE_IDS = {
+  temp_chambre_jules: 'bfb8d8de60580b0a9fnkxq',
+  temp_salon:         'bf84e177556484e481jpwd',
+  temp_sdb_bas:       'bfc71adbd5b267026bbxgp',
+  temp_chambre_nous:  'bf761413f71fcea995ihdt',
+  temp_sdb_haut:      'bffa8434fe10aa1059xvdv',
+  temp_sous_sol:      'bfb93470abf69bae3f1x0m',
+  pc_veilleuse:       '8005033824a160142bc8',
+  projecteur_entree:  'bf301f42c44ed97705yo9y',
+  seche_serviettes:   'bfef94a21889d1477cyvvg',
+  projecteur:         'bf923249e9c49dd85fb8ub',
+  imprimante_3d:      '006508685002911743a5',
+  piscine:            'bf0fdac49c07252a8a0fc4',
+  compteur:           'bfff4e39ca2dba391bzpuw',
+  clim:               'bf90476e5781ac7275q43s',
 };
 
-let apiConfig = null;
+let allDevices = [];
 
 // ── Greeting ─────────────────────────────────────────────
 (function(){
   const h = new Date().getHours();
-  const g = h < 12 ? 'Bonjour !' : h < 18 ? 'Bon après-midi !' : 'Bonne soirée !';
-  document.getElementById('greeting').textContent = g;
+  document.getElementById('greeting').textContent =
+    h < 12 ? 'Bonjour !' : h < 18 ? 'Bon après-midi !' : 'Bonne soirée !';
 })();
 
 // ── Navigation ───────────────────────────────────────────
@@ -467,57 +266,6 @@ function showPage(id, btn) {
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   btn.classList.add('active');
-  if (id === 'energy') buildChart();
-}
-
-// ── Devices ──────────────────────────────────────────────
-function toggleDevice(id) {
-  const d = devices[id];
-  d.on = !d.on;
-  const tog    = document.getElementById('tog-' + id);
-  const icon   = document.getElementById('icon-' + id);
-  const status = document.getElementById('status-' + id);
-  tog.classList.toggle('on', d.on);
-  icon.className = 'device-icon-wrap ' + (d.on ? d.type : 'off');
-  status.className = 'device-status' + (d.on ? ' on' : '');
-  status.textContent = d.on ? d.onText : d.offText;
-  updateCount();
-  showToast(d.on ? '✓ ' + id + ' allumé' : '✓ ' + id + ' éteint');
-  if (apiConfig) tuyaCommand(id, d.on);
-}
-
-function updateCount() {
-  const n = Object.values(devices).filter(d => d.on).length;
-  document.getElementById('active-count').textContent = n;
-}
-
-function setBrightness(input, id) {
-  const v = Math.round(input.value);
-  document.getElementById('bright-' + id).textContent = v + '%';
-  if (apiConfig) tuyaCommand(id, true, { bright_value: Math.round(v * 10) });
-}
-
-function setTemp(input) {
-  const v = Math.round(input.value);
-  document.getElementById('temp-val').textContent = v + '°C';
-  document.getElementById('status-thermo').textContent = v + '°C — Chauffage';
-  document.getElementById('stat-temp').textContent = v;
-  if (apiConfig) tuyaCommand('thermo', true, { temp_set: v * 10 });
-}
-
-// ── Scenes ───────────────────────────────────────────────
-const sceneActions = {
-  soiree: () => { if(devices.lum1.on===false) toggleDevice('lum1'); if(devices.lum2.on) toggleDevice('lum2'); },
-  matin:  () => { if(!devices.lum1.on) toggleDevice('lum1'); if(!devices.lum2.on) toggleDevice('lum2'); },
-  absent: () => { ['lum1','lum2'].forEach(id=>{ if(devices[id].on) toggleDevice(id); }); },
-  nuit:   () => { Object.keys(devices).filter(id=>devices[id].on && id!=='lock1' && id!=='cam1').forEach(id=>toggleDevice(id)); },
-};
-
-function setScene(el, name) {
-  document.querySelectorAll('.scene-card').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  if (sceneActions[name]) sceneActions[name]();
-  showToast('Scène « ' + el.querySelector('.scene-name').textContent + ' » activée');
 }
 
 // ── Toast ────────────────────────────────────────────────
@@ -527,114 +275,291 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// ── Energy chart ─────────────────────────────────────────
-function buildChart() {
-  const data = [1.4,1.1,1.6,0.9,1.3,1.2,0.8];
-  const days  = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
-  const max   = Math.max(...data);
-  const chart = document.getElementById('barChart');
-  const labels = document.getElementById('barLabels');
-  if (!chart || chart.children.length > 0) return;
-  data.forEach((v,i) => {
-    const bar = document.createElement('div');
-    bar.className = 'bar';
-    bar.style.height = Math.round((v / max) * 100) + '%';
-    bar.title = v + ' kWh';
-    chart.appendChild(bar);
-    const lbl = document.createElement('div');
-    lbl.className = 'bar-label';
-    lbl.textContent = days[i];
-    labels.appendChild(lbl);
-  });
-}
-
-// ── API Config ───────────────────────────────────────────
-function openModal() {
-  if (apiConfig) {
-    document.getElementById('clientId').value = apiConfig.clientId || '';
-    document.getElementById('region').value   = apiConfig.region   || 'eu';
-  }
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
-function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
-
-async function saveConfig() {
-  const id     = document.getElementById('clientId').value.trim();
-  const secret = document.getElementById('clientSecret').value.trim();
-  const region = document.getElementById('region').value;
-  if (!id || !secret) { showToast('⚠ Merci de remplir tous les champs'); return; }
-
-  document.getElementById('connectStatus').style.display = 'block';
-
-  apiConfig = { clientId: id, clientSecret: secret, region };
-  localStorage.setItem('tuyaConfig', JSON.stringify({ clientId: id, region }));
-
-  await new Promise(r => setTimeout(r, 1000));
-  document.getElementById('connectStatus').style.display = 'none';
-
-  closeModal();
-  document.getElementById('connLabel').textContent = 'Connecté';
-  document.getElementById('configBanner').classList.add('hidden');
-  document.getElementById('api-status-label').textContent = 'Connecté — ' + region.toUpperCase();
-  showToast('✓ Connexion Tuya établie');
-}
-
-// ── Tuya API stub ─────────────────────────────────────────
-const BACKEND_URL = 'https://smarthome-pwa-production.up.railway.app';
-
-async function tuyaCommand(deviceId, on, props = {}) {
+// ── Charger les appareils ─────────────────────────────────
+async function loadDevices() {
+  document.getElementById('connLabel').textContent = 'Chargement...';
   try {
-    const url = on
-      ? `${BACKEND_URL}/api/devices/${deviceId}/on`
-      : `${BACKEND_URL}/api/devices/${deviceId}/off`;
-    await fetch(url, { method: 'POST' });
-    if (Object.keys(props).length > 0) {
-      await fetch(`${BACKEND_URL}/api/devices/${deviceId}/commands`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ commands: Object.entries(props).map(([code, value]) => ({ code, value })) }),
-      });
-    }
-  } catch(err) { console.error(err); }
-}
-
-// ── PWA Install ──────────────────────────────────────────
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installBanner').style.display = 'flex';
-});
-
-async function installPWA() {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if (outcome === 'accepted') showToast('✓ App installée !');
-  deferredPrompt = null;
-  document.getElementById('installBanner').style.display = 'none';
-}
-
-// ── Service Worker ───────────────────────────────────────
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW:', err));
-}
-
-// ── Restore config ───────────────────────────────────────
-const saved = localStorage.getItem('tuyaConfig');
-if (saved) {
-  try {
-    const c = JSON.parse(saved);
+    const res  = await fetch(`${BACKEND_URL}/api/devices`);
+    const data = await res.json();
+    allDevices = data.result || [];
     document.getElementById('connLabel').textContent = 'Connecté';
-    document.getElementById('configBanner').classList.add('hidden');
-    document.getElementById('api-status-label').textContent = 'Connecté — ' + (c.region||'eu').toUpperCase();
-    apiConfig = c;
-  } catch(e) {}
+    renderAll();
+  } catch(err) {
+    document.getElementById('connLabel').textContent = 'Erreur';
+    showToast('⚠ Impossible de joindre le backend');
+  }
 }
+
+// ── Helpers ───────────────────────────────────────────────
+function getDevice(id) { return allDevices.find(d => d.id === id); }
+function getStatus(d, code) { return d?.status?.find(s => s.code === code)?.value; }
+function isOn(d) {
+  return getStatus(d,'switch_1') === true || getStatus(d,'switch_led') === true;
+}
+
+// ── Rendu principal ───────────────────────────────────────
+function renderAll() {
+  renderSensors();
+  renderSwitches();
+  renderStats();
+  renderTempsDetail();
+  renderEnergy();
+  renderAllDevices();
+}
+
+// ── Capteurs T°/Humidité ──────────────────────────────────
+const SENSORS = [
+  { id: DEVICE_IDS.temp_salon,        label: 'Salon' },
+  { id: DEVICE_IDS.temp_chambre_nous, label: 'Chambre parentale' },
+  { id: DEVICE_IDS.temp_chambre_jules,label: 'Chambre Jules' },
+  { id: DEVICE_IDS.temp_sdb_bas,      label: 'SdB Bas' },
+  { id: DEVICE_IDS.temp_sdb_haut,     label: 'SdB Haut' },
+  { id: DEVICE_IDS.temp_sous_sol,     label: 'Sous-sol' },
+];
+
+function renderSensors() {
+  const el = document.getElementById('sensors-list');
+  el.innerHTML = SENSORS.slice(0,3).map(s => sensorCard(s)).join('');
+}
+
+function renderTempsDetail() {
+  const el = document.getElementById('temps-detail-list');
+  if (!el) return;
+  el.innerHTML = SENSORS.map(s => sensorCard(s, true)).join('');
+}
+
+function sensorCard(s, full = false) {
+  const d    = getDevice(s.id);
+  const temp = d ? (getStatus(d,'va_temperature') / 10).toFixed(1) : '—';
+  const hum  = d ? getStatus(d,'va_humidity') : '—';
+  const bat  = d ? getStatus(d,'battery_percentage') : null;
+  const online = d?.online;
+  const batClass = bat !== null && bat < 20 ? 'battery-low' : '';
+  return `
+  <div class="device-card">
+    <div class="device-icon-wrap thermo"><i class="ti ti-temperature" aria-hidden="true"></i></div>
+    <div class="device-info">
+      <div class="device-name">${s.label}</div>
+      <div class="device-status ${online ? 'on' : ''}">
+        ${online ? 'En ligne' : 'Hors ligne'}
+        ${bat !== null ? `<span class="${batClass}"> · 🔋 ${bat}%</span>` : ''}
+      </div>
+      ${full && hum !== '—' ? `<div style="font-size:11px;color:#8b90a4;margin-top:2px;">Humidité : ${hum}%</div>` : ''}
+    </div>
+    <div class="temp-badge">${temp}°C${hum !== '—' ? `<span class="hum-badge">${hum}%</span>` : ''}</div>
+  </div>`;
+}
+
+// ── Prises & interrupteurs ────────────────────────────────
+const SWITCHES = [
+  { id: DEVICE_IDS.projecteur_entree, label: 'Projecteur entrée', type: 'light', code: 'switch_1' },
+  { id: DEVICE_IDS.projecteur,        label: 'Projecteur extérieur', type: 'light', code: 'switch_1' },
+  { id: DEVICE_IDS.seche_serviettes,  label: 'Sèche-serviettes', type: 'thermo', code: 'switch_1' },
+  { id: DEVICE_IDS.piscine,           label: 'Pompe piscine', type: 'pool', code: 'switch_1' },
+  { id: DEVICE_IDS.imprimante_3d,     label: 'Imprimante 3D', type: 'plug', code: 'switch_1' },
+  { id: DEVICE_IDS.pc_veilleuse,      label: 'PC veilleuse', type: 'plug', code: 'switch_1' },
+];
+
+function renderSwitches() {
+  const el = document.getElementById('switches-list');
+  el.innerHTML = SWITCHES.map(s => switchCard(s)).join('');
+}
+
+function switchCard(s) {
+  const d   = getDevice(s.id);
+  const on  = d ? getStatus(d, s.code) === true : false;
+  const online = d?.online;
+  const power = d ? getStatus(d,'cur_power') : null;
+  const iconClass = on ? s.type : 'off';
+  const icons = { light:'ti-bulb', thermo:'ti-flame', pool:'ti-droplet', plug:'ti-plug', off:'ti-plug' };
+  const icon = icons[iconClass] || 'ti-plug';
+  return `
+  <div class="device-card">
+    <div class="device-icon-wrap ${iconClass}" id="icon-${s.id}">
+      <i class="ti ${icon}" aria-hidden="true"></i>
+    </div>
+    <div class="device-info">
+      <div class="device-name">${s.label}</div>
+      <div class="device-status ${on ? 'on' : ''}" id="status-${s.id}">
+        ${!online ? 'Hors ligne' : on ? 'Allumé' + (power ? ` — ${power/10}W` : '') : 'Éteint'}
+      </div>
+    </div>
+    <button class="toggle ${on ? 'on' : ''}" id="tog-${s.id}"
+      onclick="toggleSwitch('${s.id}','${s.code}','${s.type}')"
+      ${!online ? 'disabled style="opacity:0.4"' : ''}
+      aria-label="Basculer ${s.label}"></button>
+  </div>`;
+}
+
+// ── Toggle switch ─────────────────────────────────────────
+async function toggleSwitch(id, code, type) {
+  const tog  = document.getElementById('tog-' + id);
+  const icon = document.getElementById('icon-' + id);
+  const stat = document.getElementById('status-' + id);
+  const on   = !tog.classList.contains('on');
+
+  tog.classList.toggle('on', on);
+  icon.className = 'device-icon-wrap ' + (on ? type : 'off');
+  stat.className = 'device-status' + (on ? ' on' : '');
+  stat.textContent = on ? 'Allumé' : 'Éteint';
+
+  try {
+    const endpoint = on ? `${BACKEND_URL}/api/devices/${id}/on` : `${BACKEND_URL}/api/devices/${id}/off`;
+    const res = await fetch(endpoint, { method: 'POST' });
+    const data = await res.json();
+    if (!data.success) {
+      showToast('⚠ Commande refusée');
+      tog.classList.toggle('on', !on);
+    } else {
+      showToast(on ? '✓ Allumé' : '✓ Éteint');
+      updateStats();
+    }
+  } catch(err) {
+    showToast('⚠ Erreur réseau');
+    tog.classList.toggle('on', !on);
+  }
+}
+
+// ── Scènes ────────────────────────────────────────────────
+async function setScene(el, name) {
+  document.querySelectorAll('.scene-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+
+  const actions = {
+    'tout-eteindre': [
+      { id: DEVICE_IDS.projecteur_entree, on: false },
+      { id: DEVICE_IDS.projecteur,        on: false },
+      { id: DEVICE_IDS.seche_serviettes,  on: false },
+      { id: DEVICE_IDS.piscine,           on: false },
+    ],
+    'projecteurs': [
+      { id: DEVICE_IDS.projecteur_entree, on: true },
+      { id: DEVICE_IDS.projecteur,        on: true },
+    ],
+    'piscine-on': [
+      { id: DEVICE_IDS.piscine, on: true },
+    ],
+    'bureau': [
+      { id: DEVICE_IDS.imprimante_3d, on: true },
+      { id: DEVICE_IDS.pc_veilleuse,  on: true },
+    ],
+  };
+
+  const cmds = actions[name] || [];
+  showToast('Scène en cours...');
+  for (const cmd of cmds) {
+    const ep = cmd.on ? `${BACKEND_URL}/api/devices/${cmd.id}/on` : `${BACKEND_URL}/api/devices/${cmd.id}/off`;
+    await fetch(ep, { method: 'POST' }).catch(()=>{});
+  }
+  showToast('✓ Scène activée');
+  setTimeout(loadDevices, 1500);
+}
+
+// ── Stats ─────────────────────────────────────────────────
+function updateStats() { renderStats(); }
+
+function renderStats() {
+  const online = allDevices.filter(d => d.online).length;
+  document.getElementById('stat-online').textContent = online;
+  document.getElementById('stat-total').textContent  = `sur ${allDevices.length} appareils`;
+
+  const temps = SENSORS.map(s => {
+    const d = getDevice(s.id);
+    return d ? getStatus(d,'va_temperature') / 10 : null;
+  }).filter(t => t !== null);
+  const avgTemp = temps.length ? (temps.reduce((a,b)=>a+b,0)/temps.length).toFixed(1) : '—';
+  document.getElementById('stat-temp').textContent = avgTemp;
+
+  const piscine = getDevice(DEVICE_IDS.piscine);
+  document.getElementById('stat-pool').textContent = piscine
+    ? (getStatus(piscine,'switch_1') ? 'ON 🟢' : 'OFF 🔴')
+    : '—';
+
+  const lowBat = SENSORS.filter(s => {
+    const d = getDevice(s.id);
+    const bat = d ? getStatus(d,'battery_percentage') : null;
+    return bat !== null && bat < 20;
+  }).length;
+  document.getElementById('stat-battery').textContent = lowBat > 0 ? `⚠ ${lowBat}` : '✓ 0';
+}
+
+// ── Énergie ───────────────────────────────────────────────
+function renderEnergy() {
+  const cpt = getDevice(DEVICE_IDS.compteur);
+  const el  = document.getElementById('energy-detail');
+  if (cpt) {
+    const total  = getStatus(cpt,'forward_energy_total') || 0;
+    const reverse= getStatus(cpt,'reverse_energy_total') || 0;
+    const power  = getStatus(cpt,'total_power') || 0;
+    el.innerHTML = `
+    <div class="device-card">
+      <div class="device-icon-wrap energy"><i class="ti ti-bolt" aria-hidden="true"></i></div>
+      <div class="device-info">
+        <div class="device-name">CPT A : PAC — B : Becs</div>
+        <div class="device-status on">En ligne</div>
+      </div>
+    </div>
+    <div class="stats-grid" style="margin-top:10px;">
+      <div class="stat-card"><div class="stat-label">Puissance actuelle</div><div class="stat-value">${power/10}<span class="stat-unit"> W</span></div></div>
+      <div class="stat-card"><div class="stat-label">Énergie injectée</div><div class="stat-value">${(reverse/100).toFixed(0)}<span class="stat-unit"> kWh</span></div></div>
+    </div>`;
+  } else {
+    el.innerHTML = '<div class="loading-bar">Données non disponibles</div>';
+  }
+
+  const plugsEl = document.getElementById('energy-plugs');
+  const plugsWithPower = [
+    { id: DEVICE_IDS.piscine, label: 'Pompe piscine' },
+    { id: DEVICE_IDS.imprimante_3d, label: 'Imprimante 3D' },
+    { id: DEVICE_IDS.pc_veilleuse, label: 'PC veilleuse' },
+    { id: DEVICE_IDS.seche_serviettes, label: 'Sèche-serviettes' },
+  ];
+  plugsEl.innerHTML = plugsWithPower.map(p => {
+    const d = getDevice(p.id);
+    const power = d ? getStatus(d,'cur_power') : null;
+    const voltage = d ? getStatus(d,'cur_voltage') : null;
+    return `
+    <div class="device-card">
+      <div class="device-icon-wrap ${d?.online ? 'plug' : 'off'}"><i class="ti ti-plug" aria-hidden="true"></i></div>
+      <div class="device-info">
+        <div class="device-name">${p.label}</div>
+        <div class="device-status ${d?.online ? 'on' : ''}">${d?.online ? 'En ligne' : 'Hors ligne'}</div>
+      </div>
+      <div style="font-size:12px;color:#8b90a4;text-align:right;">
+        ${power !== null ? `<div>${power/10}W</div>` : ''}
+        ${voltage !== null ? `<div style="font-size:11px;">${voltage/10}V</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Tous les appareils (settings) ─────────────────────────
+function renderAllDevices() {
+  const el = document.getElementById('all-devices-list');
+  if (!el) return;
+  el.innerHTML = allDevices.map(d => `
+  <div class="device-card">
+    <div class="device-icon-wrap ${d.online ? 'plug' : 'off'}">
+      <i class="ti ti-device-floppy" aria-hidden="true"></i>
+    </div>
+    <div class="device-info">
+      <div class="device-name">${d.name}</div>
+      <div class="device-status ${d.online ? 'on' : ''}">${d.online ? 'En ligne' : 'Hors ligne'} · ${d.category}</div>
+    </div>
+  </div>`).join('');
+}
+
+// ── Service Worker ────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+
+// ── Init ──────────────────────────────────────────────────
+loadDevices();
+setInterval(loadDevices, 60000); // Rafraîchissement auto toutes les 60s
 </script>
 </body>
 </html>
