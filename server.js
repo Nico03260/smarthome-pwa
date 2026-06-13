@@ -25,8 +25,8 @@ const BASE_URL = BASE_URLS[REGION] || BASE_URLS.eu;
 
 // ── Signature Tuya ────────────────────────────────────────
 function sign(clientId, secret, token, t, method, path, body = '') {
-  const bodyHash = crypto.createHash('sha256').update(body).digest('hex');
-  const strToSign = [method, bodyHash, '', path].join('\n');
+  const bodyHash  = crypto.createHash('sha256').update(body || '').digest('hex');
+  const strToSign = method + '\n' + bodyHash + '\n' + '' + '\n' + path;
   const signStr   = clientId + (token || '') + t + strToSign;
   return crypto.createHmac('sha256', secret).update(signStr).digest('hex').toUpperCase();
 }
