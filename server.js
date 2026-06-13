@@ -119,7 +119,8 @@ app.get('/api/token', async (req, res) => {
 app.get('/api/devices', async (req, res) => {
   try {
     const uid  = process.env.TUYA_UID || 'eu16080591067982nAyN';
-    const data = await tuyaRequest('GET', `/v2.0/cloud/thing/device?page_size=20&page_no=1`);
+    const uid  = 'eu16080591067982nAyN';
+const data = await tuyaRequest('GET', `/v1.0/users/${uid}/devices`);
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: err.message });
