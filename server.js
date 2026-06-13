@@ -1,4 +1,5 @@
 // SmartHome — Backend Tuya sécurisé
+require('dotenv').config();
 // Signe les requêtes Tuya côté serveur (le secret ne quitte jamais le serveur)
 
 const express = require('express');
